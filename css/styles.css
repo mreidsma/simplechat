@@ -1,0 +1,99 @@
+
+body {
+	margin: 0 auto; 
+	padding: 0;
+} 
+
+#header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 5.25em;
+	background: #fff; 
+	width: 23%;
+	z-index: 5; 
+	border-bottom: 1px solid #ddd; 
+	padding: .5em 1%;
+}
+
+h1 {
+   font-size: 1.2em;
+}
+
+#account {
+	
+}  
+
+ul.horizontal-list {
+	margin: 0;
+	padding: 0;
+}
+
+ul.horizontal-list li {
+	display: inline;
+	margin-right: 5%;
+}  
+
+#who {
+	width: 23%;
+	position: fixed;
+	right: 0;
+	top: 15%;
+	height: 80%;
+	background-color: #fff;
+	z-index: 4;
+	padding: .5em 1%;
+}
+
+#input-screen {
+	width: 75%;
+	float: left;
+	height: 70%; 
+}  
+
+#transcript {
+	overflow-y: scroll;
+	height: 26.25em; 
+	padding-bottom: 6em; 
+	z-index: 0;
+	border-right: 1px solid #ddd;
+	position: fixed;
+	left: 0;
+	top: 0;  
+	width: 70%;
+}
+
+#input-screen form {
+	/* Make the form sit at the bottom of the screen */ 
+	position: fixed;
+	bottom: 0;
+	left: 0; 
+	width: 74%; 
+	height:6em;
+	background: #fff; 
+	z-index: 3; 
+	padding-top: .5em;
+	border-top: 1px solid #ddd;
+}
+
+textarea {
+	width: 100%;
+}
+
+.when {
+	color: #575757;
+	font-size: 14px;
+} 
+
+legend {
+	display: none;
+}
+
+fieldset {
+	border: 0;
+} 
+
+ol#transcript li {
+	border-bottom: 1px solid #bbb;
+	padding: .5em 0;
+}
