@@ -148,7 +148,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 	   	 	<ol id="transcript">
 <?php
    			// Let's show the messages
-			$chitchat = $db->query("(SELECT transcript.message_timestamp, transcript.message_id, transcript.message_text, transcript.message_user, users.fname FROM transcript, users WHERE transcript.message_user = users.user_id ORDER BY message_timestamp DESC) ORDER BY message_id ASC");
+			$chitchat = $db->query("(SELECT transcript.message_timestamp, transcript.message_id, transcript.message_text, transcript.message_user, users.fname FROM transcript, users WHERE transcript.message_user = users.user_id ORDER BY message_timestamp DESC LIMIT 50) ORDER BY message_id ASC");
 			
 			//echo $chitchat->numrows();
 
