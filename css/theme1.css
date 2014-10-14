@@ -1,0 +1,100 @@
+/* Message formats */ 
+
+body {
+	font-family: "Comic Sans","Comic Sans MS","Chalkboard","ChalkboardSE-Regular","Marker Felt","Purisa","URW Chancery L",cursive,sans-serif;
+	color: yellow;
+}
+
+body,
+#input-screen form,
+#header {
+	background: url('../img/microfab.gif') repeat scroll left top #00F; 
+} 
+
+#who {
+	background: url('../img/stars.gif') repeat scroll left top #000;
+}
+
+a {
+	color: #0EE;
+}
+
+p {
+	margin: .4em 0;
+}
+
+.speaker {
+	display: inline-block;
+	float: left;
+	width: 5%;
+	min-width: 5em;
+} 
+
+.message {
+	margin-left: 6%;
+}
+
+.when {
+	clear: both;
+	float: right; 
+	padding-bottom: .5em;
+	color: red;
+} 
+
+ol#transcript {
+	list-style-type: none;
+	padding: 0 1;
+}
+
+ol#transcript li {
+	padding: .25em 0 1.2em 0;
+} 
+
+ol#transcript li .speaker {
+	background-color: #000;
+	color: #fff;
+	padding: .2em .5%; 
+	font-size: .85em; 
+	margin-right: 1.5%;
+} 
+
+ol#transcript li .speaker.me {
+	background-color: yellow;
+	color: #000;
+	padding: .2em .5%; 
+	font-size: .85em; 
+	margin-right: 1.5%;
+}
+
+#input-screen form {
+	padding-top: .2em;
+}
+
+#input-screen form label {
+	font-size: .85em;
+}
+
+textarea {
+	font-family: "Comic Sans","Comic Sans MS","Chalkboard","ChalkboardSE-Regular","Marker Felt","Purisa","URW Chancery L",cursive,sans-serif;
+	height: 2.5em;
+}  
+
+input[type="submit"] {
+	background: url('../img/rainbow.gif') repeat scroll left top #000;
+	font-family: "Comic Sans","Comic Sans MS","Chalkboard","ChalkboardSE-Regular","Marker Felt","Purisa","URW Chancery L",cursive,sans-serif;
+} 
+
+a.button {
+	display: inline-block;
+	padding: 4px 12px;
+	margin-bottom: 0px;
+	font-size: 16px;
+	line-height: 20px;
+	color: #333;
+	text-align: center;
+	text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #E6E6E6;
+	border: 6px ridge #BBB;
+}

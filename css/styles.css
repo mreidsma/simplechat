@@ -96,4 +96,9 @@ fieldset {
 ol#transcript li {
 	border-bottom: 1px solid #bbb;
 	padding: .5em 0;
+	clear: both;
+}  
+
+ol#transcript li li {
+	border-bottom: 0;
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php  
 session_start();
 error_reporting(0);
 
@@ -12,7 +12,7 @@ $actual_url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVE
 	// Are you logged in?
     
 	// Debug the user login by a force login
-	//$_SESSION['username'] = 'reidsmam'; $logged_in = 1; $user_id = 1; // By default, user is logged out
+	$_SESSION['username'] = 'reidsmam'; $logged_in = 1; $user_id = 1; // By default, user is logged out
 
 	if(!(isset($_SESSION['username']))) { // No $_SESSION['username'] variable, send to login script
         $logged_in = 0; // By default, user is logged out
@@ -35,7 +35,23 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
    	exit();
 	}
 
-	if(isset($_SESSION['username'])) { // User has logged in
+	if(isset($_SESSION['username'])) { // User has logged in 
+		
+		 if(isset($_POST['submit'])) { // Settings have been updated
+
+		       $notifications = $_POST['notifications'];
+			   $theme = $_POST['theme'];
+
+			   // Update account
+			   $update = $db->query("UPDATE users SET theme='$theme', notification='$notifications' WHERE user_id='$user_id'");
+
+			   if($update) {
+				$m = '<div class="success">Your settings were updated.</div>';
+			   } else {
+				$m = '<div class="error">Whoops, there was a problem.</div>';
+			  }
+
+		  }
 
 		if (isset($_REQUEST['logout'])) {
 			$_SESSION = array();
@@ -43,20 +59,18 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 			header('Location: index.php');
 		}
         
-		// Get user data when first logging in
-		if(($logged_in != 1) || ($username == NULL)) {  
+		// Get user data
 			$username = $_SESSION['username'];
 			// User names are unique, so only need a single row
 			// Get all the bits from the user name so you don't have to ask again
 			$user_result=$db->query("SELECT * FROM users WHERE username = '$username' LIMIT 1");
 
 			if(($user_result) && ($user_result->num_rows > 0)) { // Query was successful, a user was found 
-
-
-				while($row = $user_result->fetch_assoc()) {
+                 while($row = $user_result->fetch_assoc()) {
 					$user_id = $row["user_id"];
 					$user_fname = $row["fname"];
 					$user_email = $row["email"];
+					$user_notifications = $row["notification"]; 
 					$user_theme = $row["theme"];
 				}     
 			
@@ -71,26 +85,12 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 
 			echo '<h1>Sorry, you don&#8217;t have access to this system.</h1>';
 			die;
-         }   
-		}
-	
-	   // Add a new message
-	   if(isset($_POST['message'])) {
-		  
-			// Watch out for naughty bits
-			$message = $db->real_escape_string($_POST['message']);
-						
-		   	addMessage($user_id, $message);
-			
-		   // Check to see if it was a message meant for Bruce, and do the Bruce things.
-			
-			messageTo($message);
-		
-	   }
-			
-	  
+         } 
 
-  }
+	  }
+
+     
+
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +106,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
      	if($user_theme > 0) {
             echo '<link rel="stylesheet" type="text/css" href="css/theme' . $user_theme . '.css" />';
 		}
-?>  
+?>
 	</head>
 	
 	<body> 
@@ -116,7 +116,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 		<div id="account">
 		     <ul class="horizontal-list"> 
 			    <li>Hello, <?php echo $user_fname; ?></li>
-				<li><a href="settings.php">Settings</a></li>
+				<li><a href="settings.php" class="active">Settings</a></li>
 				<li><a href="?logout">Log out</a></li>
 				
 			 </ul>
@@ -124,62 +124,64 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 	  </div>
 		
 		<div id="who">
-			<h2>Who Uses This?</h2>  
-			
-			<p>This is an asynchronous chat room. Here are all the registered users, with the last time they were active.</p>
-			
-			<ul>
-				<li>Bruce: <span class="when">Always</span></li>
-<?php
-     			   // Ok, list the folks who have logged in recently
-                   $folks = $db->query("SELECT fname, last_logged_in FROM users WHERE user_id != '9' ORDER BY last_logged_in DESC");
-
-					if($folks) {  
-						
-						while($row = $folks->fetch_assoc()) {  
-							echo '<li>' . $row['fname'] . ': <span class="when">' . relative_time($row['last_logged_in']) . '</span></li>';
-						}
-					}
-
-?>   
-			 </ul> 
-			
-			<p><a href="help.html" target="_blank" id="gethelp">Get Help Now</a></p>
+		 	&nbsp;  
 		</div>  
 		
 		<!-- Let's see some history WOOT WOOT -->
-		<div id="input-screen">
-			<?php echo $m; ?>
-	   	 	<ol id="transcript">
-<?php
-   			// Let's show the messages
-			$chitchat = $db->query("(SELECT transcript.message_timestamp, transcript.message_id, transcript.message_text, transcript.message_user, users.fname FROM transcript, users WHERE transcript.message_user = users.user_id ORDER BY message_timestamp DESC LIMIT 50) ORDER BY message_id ASC");
-			
-			//echo $chitchat->numrows();
-
-			if($chitchat) {
-				 while($row = $chitchat->fetch_assoc()) { 
-				   					 
-						echo '<li id="' . $row['message_id'] . '"><div class="speaker' . ($user_fname == $row["fname"] ? ' me' : '')  .'"><p>' . $row['fname'] . ':</p></div> <div class="message">' . Markdown($row['message_text']) . '</div> <div class="when">' . relative_time($row['message_timestamp']) . '</li>';
-					}
+		<div id="settings-screen">
+<?php			
+			if(isset($m)) {
+				echo $m;
 			}
-           
-
-
-?>
-			</ol>
-		
-			<form name="chitchat" method="post" action="">
+?>   		
+			<form name="settings" action="" method="post" id="settings-form">
 				 <fieldset>
-					  <legend>Join the Conversation</legend>
-					  	<label for="message">Type Your Message:</label><br />
-						<textarea name="message" id="message"></textarea><br />
-						<input type="submit" name="send message" value="Send Message" />
-				 </fieldset>
-			</form> 
+					<legend>User Settings</legend>
+					
+					<p><input type="checkbox" value="1" name="notifications" id="notifications" <?php if ($user_notifications == 1) { echo 'checked="checked"'; } ?> />&nbsp;<label for="notifications">Email me when someone directs a message at me</label></p>
+					
+				    <p>
+					<label for="theme">Change Your Theme</label>
+					
+
+				   <select name="theme" id="theme"> 
+					
+<?php
+               // Theme details are stored in a JSON file in the inc directory. CSS files for themes are in the CSS directory,
+			   // named themeX.css, where X is the numerical value of the theme. JS files are stored in the JS directory, named
+			   // themeX.js. Both are required for a theme to work. 
+			    
+			if($user_theme == 0) {
+				echo '<option value="0" selected="selected">--- Select One ---</option>';
+				
+			} else {
+				echo '<option value="0">--- Select One ---</option>';
+				
+			}
+
+				// Get the JSON file and parse it
+				$themes = json_decode(file_get_contents('inc/themes.json'));
+
+				foreach($themes as $key => $value) { 
+					
+					if($value == $user_theme) {
+						echo '<option value="' . $value . '" selected="selected">' . $key . '</option>'; 
+					} else {
+					    echo '<option value="' . $value . '">' . $key . '</option>';  
+					}
+                 }
+
+
+?> 			                   
+					</select>
+					
+					<p><input type="submit" value="Update Settings" name="submit" /></p>
+				
+			</form>
+			
+			<p><a href="index.php" class="button">Back to Chat</a></p>
 	    </div>  
 	
 	
-	<script src="js/scripts.js"></script>
 	</body>
 </html>
