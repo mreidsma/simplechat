@@ -181,7 +181,7 @@ function messageTo($message) {
 						$bruce_speech = "No. Do it yourself.";
 					}}}}
 					
-					$bruce_speech .= ' Try reading [the help, maybe?](help.html)';                 
+					$bruce_speech .= ' Try reading <a href="help.html" target="_blank">the help, maybe?</a>';                 
 
 			addMessage(9, $bruce_speech); 
 		 }
