@@ -1,0 +1,55 @@
+
+
+body {
+	font-family: Helvetica, Arial, Verdana, sans-serif; 
+	background: #bbb;
+} 
+
+#header {
+	background: #bbb;
+}   
+
+ol#transcript .speaker {
+	font-weight: bold;
+}
+
+#input-screen,
+ol#transcript {
+	background: #fff;
+}
+
+#who {
+	background-color: #bbb;
+}
+
+.speaker.me {
+	background-color: #069;
+	color: #fff;
+} 
+
+#who ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+#who ul li {
+	padding: .25em 0;
+}
+
+#who .when {
+	font-style: italic; 
+	display: inline-block;
+	margin-left: 2%;
+} 
+
+#account {
+	font-size: .9em;
+} 
+
+#who h2 {
+	font-size: 1.2em;
+}
+
+#who p {
+	font-size: .85em;
+}

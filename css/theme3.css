@@ -1,0 +1,77 @@
+body {
+	font-family: Helvetica, Arial, Verdana, sans-serif; 
+} 
+
+body,
+#header,
+#who {
+	background: #858449;
+}   
+
+ol#transcript .speaker {
+	font-weight: bold;
+}
+
+#input-screen,
+ol#transcript {
+	background: #fff;
+}
+
+#who a,
+#header a {
+	color: #EDD606;
+}
+
+#transcript a {
+	color: #7F4F10;
+}
+
+.speaker.me {
+	background-color: #C9561D;
+	color: #fff;
+} 
+
+#who ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+#who ul li {
+	padding: .25em 0; 
+	font-weight: bold;
+}
+
+#who .when {
+	font-style: italic; 
+	display: inline-block;
+	margin-left: 2%;
+	color: #ddd;
+	font-weight: normal;
+} 
+
+#account {
+	font-size: .9em;
+} 
+
+#who h2 {
+	font-size: 1.2em;
+}
+
+#who p {
+	font-size: .85em;
+} 
+
+input[type="submit"] {
+	background: #FE9406;
+	padding: .5em; 
+	font-size: 1.1em;
+	border: 0;
+} 
+
+#input-screen label {
+	display: none;
+}
+
+#input-screen form input[type="submit"] {
+	float: right;
+}

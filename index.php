@@ -38,7 +38,6 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 	if(isset($_SESSION['username'])) { // User has logged in
 
 		if (isset($_REQUEST['logout'])) {
-			$_SESSION = array();
 			session_destroy();
 			header('Location: index.php');
 		}

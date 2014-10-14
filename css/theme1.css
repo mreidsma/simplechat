@@ -48,7 +48,7 @@ ol#transcript .when {
 
 ol#transcript {
 	list-style-type: none;
-	padding: 0 1;
+	padding: 0;
 }
 
 ol#transcript li {

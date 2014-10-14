@@ -1,8 +1,12 @@
-
+html {
+    min-height: 100%;
+}
 body {
-	margin: 0 auto; 
-	padding: 0;
-} 
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+
+}
 
 #header {
 	position: fixed;
@@ -32,7 +36,11 @@ ul.horizontal-list {
 ul.horizontal-list li {
 	display: inline;
 	margin-right: 5%;
-}  
+} 
+
+#input-screen {
+	height: 100%;
+} 
 
 #who {
 	width: 23%;
@@ -51,29 +59,13 @@ ul.horizontal-list li {
 	height: 70%; 
 }  
 
-#transcript {
-	overflow-y: scroll;
-	height: 26.25em; 
-	padding-bottom: 6em; 
-	z-index: 0;
-	border-right: 1px solid #ddd;
-	position: fixed;
-	left: 0;
-	top: 0;  
-	width: 70%;
-}
-
 #input-screen form {
-	/* Make the form sit at the bottom of the screen */ 
-	position: fixed;
+	height: 18%; 
+	position:absolute;
 	bottom: 0;
-	left: 0; 
-	width: 74%; 
-	height:6em;
-	background: #fff; 
+	width: 74%;
 	z-index: 3; 
-	padding-top: .5em;
-	border-top: 1px solid #ddd;
+	
 }
 
 textarea {
@@ -91,14 +83,57 @@ legend {
 
 fieldset {
 	border: 0;
+}
+
+ol#transcript {
+	height: 78.5%;
+	max-height: 80%;
+	position:absolute;
+	top:0;
+	width: 74%;
+	overflow-y: scroll;
+	padding-bottom: 6em; 
 } 
+
+ol#transcript {
+	list-style-type: none;
+	padding: 0;
+}
 
 ol#transcript li {
 	border-bottom: 1px solid #bbb;
-	padding: .5em 0;
+	padding: .25em .5em 1.2em .5em;
 	clear: both;
 }  
 
+ol#transcript li:last-child {
+	border-bottom: 0;
+}
+
 ol#transcript li li {
 	border-bottom: 0;
+} 
+
+ol#transcript .when {
+	clear: both;
+	float: right; 
+	padding-bottom: .5em;
+}
+
+.message {
+	margin-left: 6%;
+}
+
+.speaker {
+	display: inline-block;
+	float: left;
+	width: 5%;
+	min-width: 5em; 
+	margin-right: 2%;
+	text-align: right;
+	padding-right: .5%;
+}
+
+p {
+	margin: .4em 0;
 }
