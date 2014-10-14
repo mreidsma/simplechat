@@ -57,7 +57,7 @@ Function to determine whether the message was sent to a particular person
 
 function messageTo($message) {
 	
-	global $db, $org_name, $user_fname, $user_email;
+	global $db, $org_name, $user_fname, $user_email, $user_id;
 	
 	$to = split(" ", $message);
 	
@@ -100,6 +100,14 @@ function messageTo($message) {
 		}     
 		
 		if((strtolower($to[1]) == 'i') && (strtolower($to[2]) == 'am') && (strtolower($to[3]) == 'working') && (strtolower($to[4]) == 'on')) { // Update the I am working on table
+			
+		  // First, get rid of the silly commands and just give the text of what Bruce needs
+		
+		  $split_text = $to[0] . ' ' . $to[1] . ' ' . $to[2] . ' ' . $to[3] . ' ' . $to[4];
+		  
+		  $goodies = split($split_text, $message);  
+			
+		 addMessage(9, addProject($user_id, $goodies[1]));  
 			
 		}       
 		
@@ -191,6 +199,22 @@ function addProject($user_id, $project) {
 	
 	$now = time();
 	
+	$exists = $db->query("SELECT * FROM projects WHERE user_id = '$user_id'");
+	
+	if($exists->num_rows > 0) { // Update the old record
+	   $add_project = $db->query("UPDATE projects SET projects='$project', timestamp='$now' WHERE user_id='$user_id'"); 
+	} else { // Add it for the first time
+	   $add_project = $db->query("INSERT INTO projects VALUES ('$user_id','$project','$now')");  
+	} 
+ 
+	if($add_project) {
+	   $reply = 'Okay, ' . firstName($user_id) . ', you are ' . $project . '&#8212;Got it.'; 
+	} else {
+	   $reply = 'Whoops, there was a problem with that.'; 
+	}
+	
+	 return $reply;
+
 }  
 
 /*
@@ -201,6 +225,38 @@ function whatYouDoing() {
 	
 	global $db;
 	
-	$now = time();
+	$now = time(); 
 	
+	$what = $db->query("SELECT projects.projects, projects.timestamp, users.fname 
+						FROM projects, users 
+						WHERE users.user_id = projects.user_id
+						ORDER BY users.fname ASC");
+						
+	if($what) { 
+		
+		$reply = "Here is what everyone is up to:\n\n";
+		
+		 while($row = $what->fetch_assoc()) {  
+				$reply .= '* **' . $row['fname'] . '** is ' . $row['projects'] . ' (' . relative_time($row['timestamp']) . ')' . "\n";
+			}  
+			
+		  return $reply;
+		
+	}  else {
+		
+		  return 'Whoops, there was a problem with that.';
+	}
+	
+} 
+
+function firstName($user_id) {
+	
+	global $db;
+	
+	$name_query = $db->query("SELECT fname FROM users WHERE user_id='$user_id' LIMIT 1");
+	          
+	 while($row = $name_query->fetch_assoc()) { 
+		print_r($row);
+		 return $row['fname'];
+	 }
 }
