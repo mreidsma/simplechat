@@ -10,7 +10,9 @@ body {
 }   
 
 ol#transcript .speaker {
-	font-weight: bold;
+	font-weight: bold; 
+	background: #575757;
+    color: #fff;
 }
 
 #input-screen,
@@ -23,7 +25,7 @@ ol#transcript {
 }
 
 .speaker.me {
-	background-color: #069;
+	background: #069;
 	color: #fff;
 } 
 
