@@ -235,25 +235,46 @@ function deployDev($repo, $branch, $user_id) {
 Function to deploy code to the production server from Github
 */
 
-function deployProd($server, $repo) { 
+function deployProd($repo, $branch, $user_id) { 
 	
-	// Choose a random number between 1 and 7
-	$rand = rand(1,7);
-	
-	set_time_limit(0);
-	ignore_user_abort(true);
-	$deploy = shell_exec('cd ' . $server . '' . $repo . '; git pull origin master'); 
-	
-	if($deploy) { 
-		$message = '<h2>Success!</h2>
-					<p><img src="/img/success' . $rand . '.gif" alt="Success" /></p>
-					<pre>' . trim($deploy) . '</pre>';
-	} else {  
-		$message = '<h2>Nope</h2>
-					<p><img src="/img/error' . $rand . '.gif" alt="Error" /></p>
-					<p>Whoops, there was a problem.</p>';
-	}   
-	
+   // Check to make sure they have permissions to do this (this requires a variable $key that should be defined in the config)
+
+	global $prod_deploy, $key, $deploy_url;
+
+	if(in_array($user_id, $prod_deploy)) {
+
+		// Choose a random number between 1 and 7
+		$rand = rand(1,5); 
+
+		set_time_limit(0);
+		ignore_user_abort(true);
+		
+	   	$fields = array(
+			'key' => $key,
+			'dir' => $repo,
+			'branch' => $branch
+			);
+		
+		$ch = curl_init($deploy_url);
+ 
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ 
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		//print_r($response);
+
+		if($response) { 
+			$message = 'Success:' . "\n\n" . '![Success](img/success' . $rand . '.gif)' . "\n\n" . '<pre>' . trim($response) . '</pre>'; 
+		} else {  
+			$message = 'There was an error' . "\n\n" . '![Nope](img/error' . $rand . '.gif)';
+		}
+	} else {
+		$message = 'Sorry, you don&#8217;t have permission to do that.';
+	} 
+
 	return $message;
 	
 }
