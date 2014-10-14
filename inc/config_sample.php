@@ -7,6 +7,12 @@ $db_pass = ''; // Database user's password
 $db_database = ''; // Name of the database
 
 // Organization Name
-$org_name = 'My Library'; 
+$org_name = 'My Library';
+
+// Deploy permissions for development, array of User ids
+$dev_deploy = array(1);
+
+// Deploy permissions for production, array of User ids
+$prod_deploy = array(1,2); 
 
 

@@ -219,9 +219,7 @@ function deployDev($repo, $branch, $user_id) {
 		$deploy = shell_exec('cd '. $repo . '; git pull origin ' . $branch); 
 	
 		if($deploy) { 
-			$message = '<h2>Success!</h2>
-						<p><img src="img/success' . $rand . '.gif" alt="Success" /></p>
-						<pre>' . trim($deploy) . '</pre>';
+			$message = 'Success:' . "\n\n" . '![Success](img/success' . $rand . '.gif)' . "\n\n" . '<pre>' . trim($deploy) . '</pre>'; 
 		} else {  
 			$message = 'There was an error' . "\n\n" . '![Nope](img/error' . $rand . '.gif)';
 		}
