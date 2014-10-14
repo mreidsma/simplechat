@@ -53,3 +53,23 @@ ol#transcript {
 #who p {
 	font-size: .85em;
 }
+
+#who a#gethelp,
+input[type="submit"],
+#backtochat {
+	padding: .5em; 
+	font-size: 1.1em;
+	border: 0;
+} 
+
+#who a#gethelp,
+#backtochat {
+   background: #575757;
+   color: #fff;
+	text-decoration: none;
+} 
+
+input[type="submit"] {
+	background: #069;
+	color: #fff;
+}

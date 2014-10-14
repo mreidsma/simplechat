@@ -190,7 +190,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 				
 			</form>
 			
-			<p><a href="index.php" class="button">Back to Chat</a></p>
+			<p><a href="index.php" class="button" id="backtochat">Back to Chat</a></p>
 	    </div>  
 	
 	
