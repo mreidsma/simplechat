@@ -34,12 +34,17 @@ p {
 	margin-left: 6%;
 }
 
-.when {
+ol#transcript .when {
 	clear: both;
 	float: right; 
 	padding-bottom: .5em;
 	color: red;
-} 
+}  
+
+#who .when {
+	color: red;
+	float: right;
+}
 
 ol#transcript {
 	list-style-type: none;
