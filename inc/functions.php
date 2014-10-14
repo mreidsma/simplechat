@@ -217,13 +217,13 @@ function messageTo($message) {
 Function to deploy code to the development server from Github
 */
 
-function deployDev($repo, $branch, $user_id) { 
+function deployProd($repo, $branch, $user_id) { 
 	
 	// Check to make sure they have permissions to do this
 	
-	global $dev_deploy;
+	global $prod_deploy;
 	
-	if(in_array($user_id, $dev_deploy)) {
+	if(in_array($user_id, $prod_deploy)) {
 	
 		// Choose a random number between 1 and 7
 		$rand = rand(1,5); 
@@ -249,13 +249,13 @@ function deployDev($repo, $branch, $user_id) {
 Function to deploy code to the production server from Github
 */
 
-function deployProd($repo, $branch, $user_id) { 
+function deployDev($repo, $branch, $user_id) { 
 	
    // Check to make sure they have permissions to do this (this requires a variable $key that should be defined in the config)
 
-	global $prod_deploy, $key, $deploy_url;
+	global $dev_deploy, $key, $deploy_url;
 
-	if(in_array($user_id, $prod_deploy)) {
+	if(in_array($user_id, $dev_deploy)) {
 
 		// Choose a random number between 1 and 7
 		$rand = rand(1,5); 
