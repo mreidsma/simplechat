@@ -117,7 +117,21 @@ function messageTo($message) {
 			
 		}     
 		
-		if((strtolower($to[0]) == 'i') && (strtolower($to[2]) == 'am') && ((strtolower($to[3]) == 'at') || (strtolower($to[3]) == 'in') || (strtolower($to[3]) == 'downtown'))) { // Update the I am at/in table
+		if((strtolower($to[1]) == 'i') && (strtolower($to[2]) == 'am') && ((strtolower($to[3]) == 'at') || (strtolower($to[3]) == 'in') || (strtolower($to[3]) == 'downtown'))) { // Update the I am at/in table 
+			
+			// First, get rid of the silly commands and just give the text of what Bruce needs
+             
+			if(strtolower($to[3]) == 'downtown') {
+			  
+			 $location = 'downtown'; 
+			
+			} else {
+			  $split_text = $to[0] . ' ' . $to[1] . ' ' . $to[2] . ' ' . $to[3];
+			  $goodies = split($split_text, $message); 
+			  $location = $goodies[1]; 
+			} 
+			
+			 addMessage(9, addLocation($user_id, $location));
 			
 		}  
 		
@@ -171,9 +185,25 @@ Function to write to the Where Am I table
 
 function addLocation($user_id, $location) {
 	
-	global $db;
-	
+ 	global $db;
+
 	$now = time();
+
+	$exists = $db->query("SELECT * FROM location WHERE user_id = '$user_id'");
+
+	if($exists->num_rows > 0) { // Update the old record
+	   $add_location = $db->query("UPDATE location SET location='$location', timestamp='$now' WHERE user_id='$user_id'"); 
+	} else { // Add it for the first time
+	   $add_location = $db->query("INSERT INTO location VALUES ('$user_id','$location','$now')");  
+	} 
+
+	if($add_location) {
+	   $reply = 'Okay, ' . firstName($user_id) . ', you are at ' . $location . '&#8212;Got it.'; 
+	} else {
+	   $reply = 'Whoops, there was a problem with that.'; 
+	}
+
+	 return $reply;
 	
 }   
 
@@ -185,7 +215,27 @@ function whereYouAt() {
 	
 	global $db;
 	
-	$now = time();
+	$now = time(); 
+	
+	$where = $db->query("SELECT location.location, location.timestamp, users.fname 
+						FROM location, users 
+						WHERE users.user_id = location.user_id
+						ORDER BY users.fname ASC");
+						
+	if($where) { 
+		
+		$reply = "Here is where everyone is at:\n\n";
+		
+		 while($row = $where->fetch_assoc()) {  
+				$reply .= '* **' . $row['fname'] . '** is at ' . $row['location'] . ' (' . relative_time($row['timestamp']) . ')' . "\n";
+			}  
+			
+		  return $reply;
+		
+	}  else {
+		
+		  return 'Whoops, there was a problem with that.';
+	}
 	
 }
 
