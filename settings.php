@@ -37,6 +37,8 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 
 	if(isset($_SESSION['username'])) { // User has logged in 
 		
+		$username = $_SESSION['username'];  
+		
 		 if(isset($_POST['submit'])) { // Settings have been updated 
 			
 			   $user_result=$db->query("SELECT user_id FROM users WHERE username = '$username' LIMIT 1"); 
@@ -69,7 +71,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 		}
         
 		// Get user data
-			$username = $_SESSION['username'];
+			
 			// User names are unique, so only need a single row
 			// Get all the bits from the user name so you don't have to ask again
 			$user_result=$db->query("SELECT * FROM users WHERE username = '$username' LIMIT 1");
