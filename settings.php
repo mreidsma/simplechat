@@ -37,7 +37,16 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 
 	if(isset($_SESSION['username'])) { // User has logged in 
 		
-		 if(isset($_POST['submit'])) { // Settings have been updated
+		 if(isset($_POST['submit'])) { // Settings have been updated 
+			
+			   $user_result=$db->query("SELECT user_id FROM users WHERE username = '$username' LIMIT 1"); 
+			   
+		   	   if($user_result) {
+					  while($row = $user_result->fetch_assoc()) {
+							$user_id = $row["user_id"];
+					  }
+				}   
+			   
 
 		       $notifications = $_POST['notifications'];
 			   $theme = $_POST['theme'];
