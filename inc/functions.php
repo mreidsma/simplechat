@@ -97,8 +97,18 @@ function messageTo($message) {
 		
 		$gotit = 0; 
 		
-	    if(strtolower($to[1]) == 'deploy') {  // Deploy code
+	    if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'dev')) {  // Deploy code to development
+		    
+			$path = $to[3];
 			
+			if($to[4] != '') {
+				$branch = $to[4];
+			} else {
+				$branch = 'master';
+			}
+			
+			addMessage(9, deployDev($path, $branch, $user_id));
+			$gotit = 1;
 		}     
 		
 		if((strtolower($to[1]) == 'i') && (strtolower($to[2]) == 'am') && (strtolower($to[3]) == 'working') && (strtolower($to[4]) == 'on')) { // Update the I am working on table
@@ -190,10 +200,44 @@ function messageTo($message) {
 
 
 /*
-Function to deploy code to the server from Github
+Function to deploy code to the development server from Github
 */
 
-function deploy($server, $repo) { 
+function deployDev($repo, $branch, $user_id) { 
+	
+	// Check to make sure they have permissions to do this
+	
+	global $dev_deploy;
+	
+	if(in_array($user_id, $dev_deploy)) {
+	
+		// Choose a random number between 1 and 7
+		$rand = rand(1,5); 
+	
+		set_time_limit(0);
+		ignore_user_abort(true);
+		$deploy = shell_exec('cd '. $repo . '; git pull origin ' . $branch); 
+	
+		if($deploy) { 
+			$message = '<h2>Success!</h2>
+						<p><img src="img/success' . $rand . '.gif" alt="Success" /></p>
+						<pre>' . trim($deploy) . '</pre>';
+		} else {  
+			$message = 'There was an error' . "\n\n" . '![Nope](img/error' . $rand . '.gif)';
+		}
+	} else {
+		$message = 'Sorry, you don&#8217;t have permission to do that.';
+	} 
+	
+	return $message;
+	
+}    
+
+/*
+Function to deploy code to the production server from Github
+*/
+
+function deployProd($server, $repo) { 
 	
 	// Choose a random number between 1 and 7
 	$rand = rand(1,7);
@@ -214,7 +258,7 @@ function deploy($server, $repo) {
 	
 	return $message;
 	
-} 
+}
 
 /*
 Function to write to the Where Am I table
