@@ -147,7 +147,13 @@ function messageTo($message) {
 			
 			addMessage(9, $reply);
 			
-		}	
+		}  
+		
+		if(strtolower($to[1]) == 'bukkit') {  // Bruce pick a random image 
+			
+			addMessage(9, bukkit());
+			
+		}  
 	} 
 }
 
@@ -309,4 +315,16 @@ function firstName($user_id) {
 		print_r($row);
 		 return $row['fname'];
 	 }
+} 
+
+function bukkit() {
+	
+	$url = 'http://bukk.it/';
+	$html = file_get_contents($url);
+	$count = preg_match_all('/<td><a href="([^"]+)">[^<]*<\/a><\/td>/i', $html, $files);
+	$number = rand(1,$count);
+	
+	$reply = '![Random image](http://bukk.it/' . $files[1][$number] . ')';
+	
+  	return $reply;
 }
