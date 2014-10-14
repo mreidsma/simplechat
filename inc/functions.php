@@ -93,7 +93,9 @@ function messageTo($message) {
 				}
 			}
 		}         
-	} else {  // This was sent to Bruce. Parse for functions. 
+	} else {  // This was sent to Bruce. Parse for functions.
+		
+		$gotit = 0; 
 		
 	    if(strtolower($to[1]) == 'deploy') {  // Deploy code
 			
@@ -107,14 +109,15 @@ function messageTo($message) {
 		  
 		  $goodies = split($split_text, $message);  
 			
-		 addMessage(9, addProject($user_id, $goodies[1]));  
+		 addMessage(9, addProject($user_id, $goodies[1]));
+		 $gotit = 1;  
 			
 		}       
 		
 		if((strtolower($to[1]) == 'what') && (strtolower($to[2]) == 'is') && (strtolower($to[3]) == 'everyone') || (strtolower($to[3]) == 'everybody') && (strtolower($to[4]) == 'working') && (strtolower($to[5]) == 'on') || (strtolower($to[5]) == 'on?')) { // Have Bruce tell us what everyone is working on 
 			
 			addMessage(9, whatYouDoing()); 
-			
+			 $gotit = 1;
 		}     
 		
 		if((strtolower($to[1]) == 'i') && (strtolower($to[2]) == 'am') && ((strtolower($to[3]) == 'at') || (strtolower($to[3]) == 'in') || (strtolower($to[3]) == 'downtown'))) { // Update the I am at/in table 
@@ -132,13 +135,13 @@ function messageTo($message) {
 			} 
 			
 			 addMessage(9, addLocation($user_id, $location));
-			
+			  $gotit = 1;
 		}  
 		
 		if((strtolower($to[1]) == 'where') && (strtolower($to[2]) == 'is') && ((strtolower($to[3]) == 'everyone') || (strtolower($to[3]) == 'everybody'))) { // Have Bruce tell us where everyone is
 			
 			addMessage(9, whereYouAt());
-			
+			 $gotit = 1;
 		}   
 		
 		if(strtolower($to[1]) == 'hello') {  // Bruce say Hello back 
@@ -146,20 +149,40 @@ function messageTo($message) {
 			$reply = 'Well hello to you, too, ' . $user_fname;
 			
 			addMessage(9, $reply);
-			
+			 $gotit = 1;
 		}  
 		
 		if(strtolower($to[1]) == 'bukkit') {  // Bruce pick a random image 
 			
 			addMessage(9, bukkit());
-			
+			 $gotit = 1;
 		}
 		
 		if(strtolower($to[1]) == 'dealwithit') {  // Bruce pick a random image 
 			
 			addMessage(9, dealwithit());
-			
+			 $gotit = 1;
 		} 
+		
+		if($gotit == 0) {
+		
+		 $response = rand(1,4);
+
+		if($response == 1) {
+			$bruce_speech = "I have no idea what you are talking about.";
+		} else {
+			if($response == 2) {
+				$bruce_speech = "Don't drag me into this!";
+			} else {
+				if($response == 3) {
+					$bruce_speech = "Do I look like your own personal robot?";
+				} else {
+					if($response == 4) {
+						$bruce_speech = "No. Do it yourself.";
+					}}}}                 
+
+			addMessage(9, $bruce_speech); 
+		 }
 	} 
 }
 
