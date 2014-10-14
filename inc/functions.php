@@ -153,7 +153,13 @@ function messageTo($message) {
 			
 			addMessage(9, bukkit());
 			
-		}  
+		}
+		
+		if(strtolower($to[1]) == 'dealwithit') {  // Bruce pick a random image 
+			
+			addMessage(9, dealwithit());
+			
+		} 
 	} 
 }
 
@@ -325,6 +331,18 @@ function bukkit() {
 	$number = rand(1,$count);
 	
 	$reply = '![Random image](http://bukk.it/' . $files[1][$number] . ')';
+	
+  	return $reply;
+} 
+
+function dealwithit() {
+	
+	$url = 'http://reidsrow.com/__/dealwithit/';
+	$html = file_get_contents($url);
+	$count = preg_match_all('/<a href="([^"]+)">[^<]*<\/a>/i', $html, $files);
+	$number = rand(1,$count);
+	
+	$reply = '![Deal with it](http://reidsrow.com/__/dealwithit/' . $files[1][$number] . ')';
 	
   	return $reply;
 }
