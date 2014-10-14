@@ -179,7 +179,9 @@ function messageTo($message) {
 				} else {
 					if($response == 4) {
 						$bruce_speech = "No. Do it yourself.";
-					}}}}                 
+					}}}}
+					
+					$bruce_speech .= ' Try reading [the help, maybe?](help.html)';                 
 
 			addMessage(9, $bruce_speech); 
 		 }
