@@ -175,7 +175,7 @@ function deploy($server, $repo) {
 					<p>Whoops, there was a problem.</p>';
 	}   
 	
-	echo $message;
+	return $message;
 	
 } 
 

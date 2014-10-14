@@ -139,7 +139,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 ?>   
 			 </ul> 
 			
-			<p><a href="#">Get Help Now</a></p>
+			<p><a href="help.html">Get Help Now</a></p>
 		</div>  
 		
 		<!-- Let's see some history WOOT WOOT -->

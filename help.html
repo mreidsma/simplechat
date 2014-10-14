@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GVSU Libraries Chat Room Help</title>
+</head>
+<body>
+<div role="main">
+	<div class="line">
+		<div class="span1 unit">
+			<h1>Bruce Bot Cheat Sheet</h1>
+
+			<p>Bruce is the bot that lives in our chat room. He can make your work day easier by deploying code to our production and development servers, keep track of what you are working on for the rest of the team, and even help you have a little fun. This page tells you how to use him.</p> 
+			
+			<p>Bruce understands Markdown, so you can format your messages to him. Also, if you want to direct a message to a particular user, start the message with their first name. If they have notifications turned on, then Bruce will email them to let them know they have a message.</p>
+
+			<div class="lib-horizontal-list">
+				<ul>
+					<li><strong>Select from:</strong></li>
+					<li><a href="#work">Work Tasks</a></li>
+					<li><a href="#images">Images</a></li>		 
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="line" id="work" style="border-top: 1px solid #bbb; margin-top: 1em;">
+		<h2>Work Tasks</h2>
+		<div class="span1 unit instructions">
+			
+			
+			<div class="task">
+			<h3 id="deploy">deploy</h3>
+				<p>If you have permissions, Bruce can deploy code from github to either the production or development server:</p>
+<pre>Bruce deploy SERVER PATH [BRANCH]</pre>
+
+					<dl>
+						<dt><b>SERVER</b></dt>
+							<dd>&#8211; dev :: gvsulib.com</dd>
+							<dd>&#8211; prod :: labs.library.gvsu.edu</dd>
+					</dl>
+
+					<p>If I wanted to deploy the project in labs/summon_usage on our development server, I would type:</p>
+<pre>Bruce deploy dev labs/summon_usage</pre>
+					<p>If you do not specify a branch, Bruce will deploy the master branch.</p>
+				</div>
+				<div class="task">
+			<h3 id="iamworkingon">i am working on</h3>
+				<p>Tell Bruce what you are currently working on, so we don't have to have as many status meetings:</p>
+<pre>Bruce I am working on [Text]</pre>
+
+					<p>You can just enter free text for [Text]. Since I'm working on the Bruce Bot Cheat Sheet, I could type:</p>
+<pre>Bruce I am working on the Bruce Bot Cheat Sheet</pre>
+					<p>Bruce will store your most current status update.</p>
+				</div>
+
+				<div class="task">
+			<h3 id="whatiseveryoneworkingon">What is everyone working on?</h3>
+				<p>Have Bruce output everyone's current project, as set with '<a href="#iamworkingon">I am working on</a>.'</p>
+<pre>Bruce What is everyone working on?</pre>
+				</div>
+
+				<h3 id="iamat">i am at/in</h3>
+				<p>Tell Bruce where you are, so we don't have to hunt you down.</p>
+<pre>Bruce I am in/at [Text]</pre>
+
+					<p>You can just enter free text for [Text]. Since I'm in Kirkhof, I could type:</p>
+<pre>Bruce I am in Kirkhof</pre>
+					<p>Bruce will store your most current location update.</p>
+				</div>
+
+				<div class="task">
+			<h3 id="whereiseveryone">Where is everyone?</h3>
+				<p>Have Bruce output everyone's location, as set with '<a href="#iamat">I am at</a>.'</p>
+<pre>Bruce Where is everyone?</pre>
+				</div>
+
+		</div>
+	</div>
+
+	<div class="line" id="images">
+
+		<h2>Images</h2>
+
+		<div class="span1 unit instructions">
+
+		   
+
+			<div class="task">
+				<h3 id="bukkit">bukkit</h3>
+				
+				<p>Bruce will select a random image from <a href="http://bukk.it">bukk.it</a>.</p>
+
+				<pre>Bruce bukkit</pre>
+
+			</div> 
+			
+			<div class="task">
+				<h3 id="dealwithit">dealwithit</h3>
+				
+				<p>Bruce will select a random deal with it animated gif.</p>
+
+				<pre>Bruce dealwithit</pre>
+
+			</div>
+
+		</div>
+	</div>	
+
+	
+
+	<div class="line">
+		<div class="span1 unit footer">
+			<p>Bruce lives in the GVSU Libraries technology chat room. The chat room and Bruce were written by <a href="http://matthewreidsma.com">Matthew Reidsma</a> for <abbr title="Grand Valley State University">GVSU</abbr> Libraries. <a href="https://github.com/mreidsma/simplechat">Code is available on Github</a>.</p>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
