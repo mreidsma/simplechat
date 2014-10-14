@@ -12,7 +12,7 @@ $actual_url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVE
 	// Are you logged in?
     
 	// Debug the user login by a force login
-	$_SESSION['username'] = 'reidsmam'; $logged_in = 1; $user_id = 1; // By default, user is logged out
+	//$_SESSION['username'] = 'reidsmam'; $logged_in = 1; $user_id = 1; // By default, user is logged out
 
 	if(!(isset($_SESSION['username']))) { // No $_SESSION['username'] variable, send to login script
         $logged_in = 0; // By default, user is logged out
