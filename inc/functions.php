@@ -97,7 +97,7 @@ function messageTo($message) {
 		
 		$gotit = 0; 
 		
-	    if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'dev')) {  // Deploy code to development
+	    if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'prod')) {  // Deploy code to development
 		    
 			$path = $to[3];
 			
@@ -107,9 +107,23 @@ function messageTo($message) {
 				$branch = 'master';
 			}
 			
-			addMessage(9, deployDev($path, $branch, $user_id));
+			addMessage(9, deployProd($path, $branch, $user_id));
 			$gotit = 1;
-		}     
+		}
+		
+		 if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'dev')) {  // Deploy code to development
+
+				$path = $to[3];
+
+				if($to[4] != '') {
+					$branch = $to[4];
+				} else {
+					$branch = 'master';
+				}
+
+				addMessage(9, deployDev($path, $branch, $user_id));
+				$gotit = 1;
+			}     
 		
 		if((strtolower($to[1]) == 'i') && (strtolower($to[2]) == 'am') && (strtolower($to[3]) == 'working') && (strtolower($to[4]) == 'on')) { // Update the I am working on table
 			
