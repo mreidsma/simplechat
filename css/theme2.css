@@ -24,7 +24,7 @@ ol#transcript {
 	background-color: #bbb;
 }
 
-.speaker.me {
+ol#transcript .speaker.me {
 	background: #069;
 	color: #fff;
 } 
