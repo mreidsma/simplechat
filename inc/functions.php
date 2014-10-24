@@ -44,7 +44,7 @@ function addMessage($user_id, $message) {
 	
 	$now = time();
 	
-	$add_message = $db->query("INSERT INTO transcript VALUES ('','$now','$user_id','$message')"); 
+	$add_message = $db->query("INSERT INTO transcript VALUES (NULL,'$now','$user_id','$message')");
 	
 	if(!$add_message) {
 		$m = '<div class="error">There was an error posting your message. It&#8217;s probably Matt&#8217;s fault.</div>';
