@@ -1,5 +1,5 @@
 <?php  
-
+$db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 /*
      Function to make times relative, written by Gilbert Pellegrom
 	 http://gilbert.pellegrom.me/php-relative-time-function/
