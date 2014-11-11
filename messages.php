@@ -22,8 +22,6 @@ if (isset($_GET['getMessages'])) {
                 "LIMIT 50) ".
             "ORDER BY message_id ASC");
 
-        $chat = [];
-
         if ($messages) {
             while ($row = $messages->fetch_assoc()) {
                 $row['messageText'] = Markdown($row['message_text']);
