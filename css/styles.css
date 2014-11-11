@@ -137,3 +137,7 @@ ol#transcript .when {
 p {
 	margin: .4em 0;
 }
+.submit-help {
+    display:inline-block;
+    color: #575757;
+}

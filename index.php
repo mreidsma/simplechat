@@ -174,6 +174,7 @@ require 'inc/markdown.php';
 						<textarea name="message" id="message"></textarea><br />
                          <input type="hidden" name="userID" value="userID" id="userID"/>
 						<input type="submit" name="send message" value="Send Message" />
+                        <span class="submit-help">&nbsp;Hit Tab + Enter to send your message</span>
 
 				 </fieldset>
 			</form> 
