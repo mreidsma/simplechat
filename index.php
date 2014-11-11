@@ -29,7 +29,6 @@ require 'inc/functions.php';
 require 'inc/markdown.php';
 
 // Create database connection
-$db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 	if ($db->connect_errno) {
    	printf("Connect failed: %s\n", $db->connect_error);
    	exit();
@@ -57,6 +56,7 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 					$user_fname = $row["fname"];
 					$user_email = $row["email"];
 					$user_theme = $row["theme"];
+					$_SESSION['userid'] = $user_id;
 				}     
 			
 	   	 		// Update the last time folks logged in
@@ -157,9 +157,8 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 			//echo $chitchat->numrows();
 
 			if($chitchat) {
-				 while($row = $chitchat->fetch_assoc()) { 
-				   					 
-						echo '<li id="' . $row['message_id'] . '"><div class="speaker' . ($user_fname == $row["fname"] ? ' me' : '')  .'"><p>' . $row['fname'] . ':</p></div> <div class="message">' . Markdown($row['message_text']) . '</div> <div class="when">' . relative_time($row['message_timestamp']) . '</li>';
+				 while($row = $chitchat->fetch_assoc()) { 			 
+						echo '<li id="' . $row['message_id'] . '" data-timestamp="' . $row['message_timestamp'] . '"><div class="speaker">' . $row['fname'] . ':</div> <div class="message">' . Markdown($row['message_text']) . '</div> <div class="when">' . relative_time($row['message_timestamp']) . '</li>';
 					}
 			}
            
@@ -173,12 +172,13 @@ $db = new mysqli($db_host, $db_user, $db_pass, $db_database);
 					  <legend>Join the Conversation</legend>
 					  	<label for="message">Type Your Message:</label><br />
 						<textarea name="message" id="message"></textarea><br />
+                         <input type="hidden" name="userID" value="userID" id="userID"/>
 						<input type="submit" name="send message" value="Send Message" />
+
 				 </fieldset>
 			</form> 
-	    </div>  
-	
-	
+	    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/scripts.js"></script>
 	</body>
 </html>
