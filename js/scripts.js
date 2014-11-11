@@ -14,6 +14,7 @@ function getMessages(){
 }
 function addMessageToTranscript(messages){
     messages = JSON.parse(messages);
+    if (messages == null) {return;}
     for (var i = 0; i < messages.length; i++){
         var message = messages[i];
         var html =
