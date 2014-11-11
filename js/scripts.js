@@ -26,6 +26,8 @@ function addMessageToTranscript(messages){
 
         jQuery("#transcript").append(html);
     }
+    var objDiv = document.getElementById("transcript");
+    objDiv.scrollTop = objDiv.scrollHeight;
 }
 
 function submitMessage(){
