@@ -97,7 +97,7 @@ function messageTo($message) {
 		
 		$gotit = 0; 
 		
-	    if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'prod')) {  // Deploy code to development
+	    if((strtolower($to[1]) == 'deploy') && (strtolower($to[2]) == 'prod')) {  // Deploy code to prod
 		    
 			$path = $to[3];
 			
@@ -230,7 +230,7 @@ function deployProd($repo, $branch, $user_id) {
 	
 		set_time_limit(0);
 		ignore_user_abort(true);
-		$deploy = shell_exec('cd '. $repo . '; git pull origin ' . $branch); 
+		$deploy = shell_exec('cd ../'. $repo . '; git pull origin ' . $branch); 
 	
 		if($deploy) { 
 			$message = 'Success:' . "\n\n" . '![Success](img/success' . $rand . '.gif)' . "\n\n" . '<pre>' . trim($deploy) . '</pre>'; 
